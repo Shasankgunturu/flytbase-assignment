@@ -11,6 +11,7 @@ A Python-based simulation framework for detecting conflicts between a primary dr
   - R-Tree (segment-based bounding box intersection)
 - **Conflict visualization with context**
 - **Benchmarking** between methods
+- **Animated output videos** with temporal evolution
 - CLI-based control for generating and testing scenarios
 
 ---
@@ -24,8 +25,8 @@ flytbase/
 ├── deconfliction_checker.py        # Brute-force method
 ├── kdtree_conflict_checker.py      # KDTree-based method
 ├── rtree_conflict_checker.py       # RTree-based method
-├── benchmark_methods.py            # Script to compare performance
-└── waypoints/                      # Stores generated .csv files
+├── waypoints/                      # Stores generated .csv files
+└── results/                        # Output .mp4 and .png visualizations
 ```
 
 ---
@@ -60,6 +61,21 @@ python3 main.py --method kdtree
   - Location
   - Distance
   - Involved drone
+
+### 🎬 Demo Videos
+Final output demonstration files:
+```
+./results/conflict_animation_1.mp4
+./results/conflict_animation_2.mp4
+./results/conflict_animation_3.mp4
+```
+
+### 🖼️ Path Visualizations
+Static trajectory graphs:
+```
+./results/path1.png
+./results/path2.png
+```
 
 ---
 
