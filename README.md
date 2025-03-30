@@ -124,11 +124,5 @@ python main.py
 
 ## 👨‍💻 Authors
 
-- Your Name(s)
-- [GitHub or email if applicable]
-
----
-
-## 📎 License
-
-MIT (or as per your institution's rules)
+- Shasank Gunturu
+- shasankgunturu@gmail.com
