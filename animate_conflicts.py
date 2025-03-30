@@ -48,7 +48,7 @@ def animate_with_conflicts(conflicts, drone_paths):
         # Highlight active conflicts
         for c in conflicts:
             conflict_time = datetime.fromisoformat(c['timestamp'])
-            if abs((t - conflict_time).total_seconds()) <= 1:
+            if abs((t - conflict_time).total_seconds()) <= 5:
                 x, y, z = c['location']
                 ax.scatter(x, y, z, color='red', s=80, marker='X', label='Conflict')
 
@@ -73,8 +73,8 @@ if __name__ == "__main__":
     paths = {os.path.splitext(f)[0]: read_waypoints_with_time(os.path.join(WAYPOINTS_DIR, f)) for f in files}
 
     # Sample conflicts
-    if os.path.exists("conflicts.json"):
-        with open("conflicts.json", "r") as f:
+    if os.path.exists("./results/conflicts.json"):
+        with open("./results/conflicts.json", "r") as f:
             conflict_data = json.load(f)
         animate_with_conflicts(conflict_data, paths)
     else:
