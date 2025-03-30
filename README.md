@@ -41,11 +41,6 @@ python3 main.py --generate --method rtree --num-drones 5
 python3 main.py --method kdtree
 ```
 
-### 3. Benchmark All Methods
-```bash
-python3 benchmark_methods.py
-```
-
 ---
 
 ## ⚖️ Comparison of Methods
