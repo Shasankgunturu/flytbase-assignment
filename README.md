@@ -70,12 +70,10 @@ Final output demonstration files:
 ./results/conflict_animation_3.mp4
 ```
 
-### 🖼️ Path Visualizations
-Static trajectory graphs:
-```
-./results/path1.png
-./results/path2.png
-```
+### 🖼️ Sample Trajectories
+
+![Path 1](results/path1.png)
+![Path 2](results/path2.png)
 
 ---
 
