@@ -9,7 +9,7 @@ from rtree_conflict_checker import RTreeConflictChecker
 collision_time_threshold = 60
 collision_dist_threshold = 5
 
-def run_pipeline(generate=False, method="brute", num_drones=3, animate=False):
+def run_pipeline(generate=False, method="rtree", num_drones=3, animate=False):
     primary_file = "primary_drone.csv"
     num_simulated = num_drones
     sim_files = [f"simulated_drone_{i+1}.csv" for i in range(num_simulated)]
