@@ -1,7 +1,6 @@
 import csv
 import os
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d import Axes3D
 from datetime import datetime
 
 def read_waypoints(filename):
