@@ -35,7 +35,7 @@ def visualize_all_drones(folder_path="./waypoints", file_list=None):
     else:
         file_list = [os.path.join(folder_path, f) for f in file_list]
 
-    fig = plt.figure()
+    fig = plt.figure(figsize=(12, 8))
     is_3D = None
     ax = None
 
@@ -44,7 +44,6 @@ def visualize_all_drones(folder_path="./waypoints", file_list=None):
         xs = [pt[0] for pt in waypoints]
         ys = [pt[1] for pt in waypoints]
         zs = [pt[2] for pt in waypoints if pt[2] is not None]
-
         label = os.path.splitext(os.path.basename(filepath))[0]
 
         if is_3D is None:
@@ -62,17 +61,16 @@ def visualize_all_drones(folder_path="./waypoints", file_list=None):
     if is_3D:
         ax.set_zlabel("Z")
 
-    plt.legend()
+    plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1), borderaxespad=0.)
+    plt.subplots_adjust(right=0.8)
     plt.grid(True)
-    plt.tight_layout()
     plt.show()
 
 def visualize_conflicts(conflicts, drone_paths):
-    fig = plt.figure()
+    fig = plt.figure(figsize=(12, 8))
     is_3D = None
     ax = None
 
-    # Plot all drone paths again
     for drone_id, waypoints in drone_paths.items():
         xs = [pt[0] for pt in waypoints]
         ys = [pt[1] for pt in waypoints]
@@ -87,7 +85,6 @@ def visualize_conflicts(conflicts, drone_paths):
         else:
             ax.plot(xs, ys, marker='o', label=drone_id)
 
-    # Plot conflicts with context
     for conflict in conflicts:
         x, y, z = conflict['location']
         timestamp = datetime.fromisoformat(conflict['timestamp'])
@@ -98,7 +95,6 @@ def visualize_conflicts(conflicts, drone_paths):
         else:
             ax.scatter(x, y, color='red', s=80, marker='X', label=f"Conflict: {label}")
 
-        # Plot nearby points for both drones
         for drone_id in ['primary_drone', os.path.splitext(conflict['conflicting_drone'])[0]]:
             if drone_id not in drone_paths:
                 continue
@@ -109,7 +105,7 @@ def visualize_conflicts(conflicts, drone_paths):
                 continue
 
             idx = indices[0]
-            nearby = waypoints[max(0, idx-1):min(len(waypoints), idx+2)]
+            nearby = waypoints[max(0, idx - 1):min(len(waypoints), idx + 2)]
             xs = [pt[0] for pt in nearby]
             ys = [pt[1] for pt in nearby]
             zs = [pt[2] for pt in nearby if pt[2] is not None]
@@ -127,8 +123,7 @@ def visualize_conflicts(conflicts, drone_paths):
     if is_3D:
         ax.set_zlabel("Z")
 
-    plt.legend()
+    plt.legend(loc='upper left', bbox_to_anchor=(1.02, 1), borderaxespad=0.)
+    plt.subplots_adjust(right=0.8)
     plt.grid(True)
-    plt.tight_layout()
     plt.show()
-

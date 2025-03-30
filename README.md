@@ -1,128 +1,97 @@
-# UAV Deconfliction Simulation 🛩️
+# 🛰️ Drone Conflict Detection System
 
-This project simulates autonomous drone flight paths, detects potential conflicts (spatial & temporal), and visualizes both trajectories and conflict zones.
+A Python-based simulation framework for detecting conflicts between a primary drone and multiple simulated drones using various spatial-temporal techniques.
+
+## 📦 Features
+- **Waypoint generation** for primary and multiple simulated drones
+- **3D trajectory visualization**
+- **Conflict detection** using:
+  - Brute-force
+  - KD-Tree (spatial point proximity)
+  - R-Tree (segment-based bounding box intersection)
+- **Conflict visualization with context**
+- **Benchmarking** between methods
+- CLI-based control for generating and testing scenarios
 
 ---
 
-## 📁 Project Structure
-
+## 📁 Folder Structure
 ```
-.
-├── main.py
-├── generate_waypoints.py
-├── visualize_drones.py
-├── deconfliction_checker.py
-├── waypoints/                # Stores all generated .csv files
-├── README.md
-└── reflection.pdf            # Design + explanation document (separate)
+flytbase/
+├── main.py                          # CLI entrypoint
+├── generate_waypoints.py           # Waypoint generation logic
+├── visualize_drones.py             # Path & conflict visualizations
+├── deconfliction_checker.py        # Brute-force method
+├── kdtree_conflict_checker.py      # KDTree-based method
+├── rtree_conflict_checker.py       # RTree-based method
+├── benchmark_methods.py            # Script to compare performance
+└── waypoints/                      # Stores generated .csv files
 ```
 
 ---
 
-## 🚀 Features
-
-- Generate structured waypoint paths (line, spiral, circle, sinusoid)
-- Simulated drones follow different paths
-- Time-stamped CSV waypoints
-- Detects conflicts based on spatial & temporal proximity
-- Visualizes:
-  - Drone trajectories (2D/3D)
-  - Conflict points with nearby path segments
-- CLI flag to control generation step
-
----
-
-## 🛠️ Requirements
-
-- Python 3.x
-- `matplotlib`
-
-Install dependencies:
+## 🚀 How to Run
+### 1. Generate Waypoints + Run Detection
 ```bash
-pip install matplotlib
+python3 main.py --generate --method rtree --num-drones 5
+```
+
+### 2. Run Conflict Check on Existing Data
+```bash
+python3 main.py --method kdtree
+```
+
+### 3. Benchmark All Methods
+```bash
+python3 benchmark_methods.py
 ```
 
 ---
 
-## 🧩 How to Run
-
-### 1. Generate Waypoints + Visualize + Detect Conflicts:
-```bash
-python main.py --generate
-```
-
-### 2. Only Visualize & Detect using existing CSVs:
-```bash
-python main.py
-```
+## ⚖️ Comparison of Methods
+| Method      | Speed       | Accuracy | Scales Well | Segment Aware |
+|-------------|-------------|----------|-------------|----------------|
+| Brute Force | ❌ Slow      | ✅ High   | ❌ No        | ✅ Yes         |
+| KD-Tree     | ✅ Fast      | ✅ Good   | ✅ Yes       | ❌ No          |
+| R-Tree      | ✅✅ Very Fast| ✅✅ High | ✅✅ Yes      | ✅✅ Yes        |
 
 ---
 
-## 📈 Outputs
-
-- `waypoints/*.csv` → Drone path data
-- Visual plot:
-  - All drone trajectories
-  - Conflict points (red `X`)
-  - Pre/post conflict waypoints (gray dots, dotted lines)
-- Console summary of each conflict:
-  - Time
+## 📊 Output
+- Drones plotted in 3D space
+- Conflicts marked with red ❌ and nearby points
+- Console summary of all detected conflicts with:
+  - Timestamp
   - Location
   - Distance
-  - Conflicting drone
+  - Involved drone
 
 ---
 
-## 📌 Conflict Detection Logic
+## 🧰 Requirements
+- Python 3.8+
+- `matplotlib`, `scipy`, `rtree`, `sklearn`
 
-- **Spatial threshold**: 5.0 meters
-- **Temporal threshold**: 60 seconds
-- Conflict occurs if:
-  ```python
-  distance < threshold AND |t1 - t2| < threshold
-  ```
-
----
-
-## 📚 File Descriptions
-
-| File | Purpose |
-|------|---------|
-| `main.py` | Central pipeline with optional CLI flag (`--generate`) |
-| `generate_waypoints.py` | Creates waypoints for primary and simulated drones |
-| `visualize_drones.py` | Visualizes trajectories and conflict zones |
-| `deconfliction_checker.py` | Class that detects and logs conflicts |
-| `waypoints/` | Stores `.csv` files for each drone's path |
-| `README.md` | This guide |
-| `reflection.pdf` | Design justification and scalability discussion |
-
----
-
-## ✅ Sample Output
-
-```
-🛰️ Mission Status: CONFLICT DETECTED
-
-🚨 Conflict #1
-• Time       : 2025-01-01T10:01:10
-• Location   : (48.7, 51.2, 29.3)
-• Drone      : simulated_drone_2.csv
-• Distance   : 3.92 meters
-• Time Diff  : 0.00 seconds
+Install all dependencies:
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
-## 🧠 Notes
-
-- Drone paths are generated using math-based parametric functions
-- Waypoints include timestamps to simulate real-world flight scheduling
-- Simulated drones are randomly offset in start time to test conflicts
-- Modular architecture makes it easy to expand
+## 📌 Notes
+- All waypoints are saved in `./waypoints` as CSV
+- Conflicts are visualized only when they exist
+- Time threshold and spatial radius are configurable in each checker class
 
 ---
 
-## 👨‍💻 Authors
+## 🙌 Author
+Built by Shasank Gunturu
 
-- Shasank Gunturu
-- shasankgunturu@gmail.com
+---
+
+Feel free to extend this framework with:
+- Animated trajectories
+- More complex airspace logic
+- Integration with real-time data
