@@ -133,6 +133,3 @@ def visualize_conflicts(conflicts, drone_paths):
     plt.tight_layout()
     plt.show()
 
-# Optional test run
-if __name__ == "__main__":
-    visualize_all_drones()

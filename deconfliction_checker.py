@@ -65,17 +65,3 @@ class DeconflictionChecker:
         else:
             print("✅ No conflicts detected.\n")
 
-# # 🔽 Example usage
-# if __name__ == "__main__":
-#     folder = "./waypoints"
-#     primary = os.path.join(folder, "primary_drone.csv")
-    
-#     # Dynamically collect all simulated drones
-#     simulated = [
-#         os.path.join(folder, f) for f in os.listdir(folder)
-#         if f.startswith("simulated_drone_") and f.endswith(".csv")
-#     ]
-
-#     checker = DeconflictionChecker(primary, simulated, spatial_threshold=5.0, temporal_threshold=60.0)
-#     checker.check_conflicts()
-#     checker.print_summary()

@@ -131,6 +131,3 @@ def generate_simulated_drones(num_drones=3,
                                       drone_label=label)
 
 
-# Example usage
-# generate_structured_waypoints(path_type="spiral", filename="primary_drone.csv", drone_label="Primary Drone", visualize=True)
-# generate_simulated_drones(num_drones=3, visualize=True)
